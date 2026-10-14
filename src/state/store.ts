@@ -16,8 +16,11 @@ export interface AppState {
   foods: FoodItem[];
   /** Optional USDA API key (stored locally only). */
   usdaApiKey: string;
+  /** Whether first-run setup is complete. */
+  onboarded: boolean;
 
   updateProfile: (patch: Partial<Profile>) => void;
+  setOnboarded: (v: boolean) => void;
   addEntry: (entry: LogEntry) => void;
   updateEntry: (id: string, patch: Partial<LogEntry>) => void;
   removeEntry: (id: string) => void;
@@ -39,9 +42,12 @@ export const useStore = create<AppState>()(
       weights: [],
       foods: [],
       usdaApiKey: "",
+      onboarded: false,
 
       updateProfile: (patch) =>
         set((s) => ({ profile: { ...s.profile, ...patch } })),
+
+      setOnboarded: (v) => set({ onboarded: v }),
 
       addEntry: (entry) => set((s) => ({ entries: [...s.entries, entry] })),
 

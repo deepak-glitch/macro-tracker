@@ -4,11 +4,16 @@ import { Today } from "./pages/Today";
 import { Add } from "./pages/Add";
 import { Trends } from "./pages/Trends";
 import { Settings } from "./pages/Settings";
+import { Onboarding } from "./pages/Onboarding";
+import { useStore } from "./state/store";
 import { todayISO } from "./lib/dates";
 
 export default function App() {
+  const onboarded = useStore((s) => s.onboarded);
   const [tab, setTab] = useState<Tab>("today");
   const [date, setDate] = useState(todayISO());
+
+  if (!onboarded) return <Onboarding />;
 
   return (
     <div className="app">
