@@ -2,7 +2,12 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
+// GitHub Pages serves this project site under /macro-tracker/. Override with
+// BASE_PATH="/" for root hosts like Vercel/Netlify or local preview.
+const base = process.env.BASE_PATH ?? "/macro-tracker/";
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     VitePWA({
@@ -17,7 +22,9 @@ export default defineConfig({
         background_color: "#0b0f14",
         display: "standalone",
         orientation: "portrait",
-        start_url: "/",
+        id: base,
+        scope: base,
+        start_url: base,
         icons: [
           { src: "icons/icon-192.png", sizes: "192x192", type: "image/png" },
           { src: "icons/icon-512.png", sizes: "512x512", type: "image/png" },
